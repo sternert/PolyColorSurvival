@@ -6,6 +6,7 @@ namespace Assets.Scripts.Weapon
 
         public GameObject shot;
         public Transform shotSpawn;
+        public float shotSize;
         public float shotRange;
         public float shotSpeed;
         public float fireRate;
@@ -25,6 +26,7 @@ namespace Assets.Scripts.Weapon
         public void Attack()
         {
             var newShotObject = Instantiate(shot, shotSpawn.position, shotSpawn.rotation) as GameObject;
+            newShotObject.transform.localScale *= shotSize;
             var newShotMover = newShotObject.GetComponent<ShotMover>();
 
             var velocity = shotSpawn.up * shotSpeed;

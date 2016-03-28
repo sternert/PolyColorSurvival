@@ -2,6 +2,7 @@
 
 namespace Assets.Scripts.Weapon
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class ShotMover : MonoBehaviour
     {
         private Rigidbody2D _rigidBody;

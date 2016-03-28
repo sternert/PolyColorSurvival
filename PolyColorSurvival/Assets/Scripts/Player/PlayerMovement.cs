@@ -2,6 +2,7 @@
 
 namespace Assets.Scripts.Player
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovement : MonoBehaviour
     {
         public float speed;
@@ -34,7 +35,6 @@ namespace Assets.Scripts.Player
         {
             var movement = new Vector2(horizontal, vertical);
             movement = movement.normalized*Time.fixedDeltaTime*speed;
-
             _rigidbody.MovePosition(_rigidbody.position + movement);
         }
     }

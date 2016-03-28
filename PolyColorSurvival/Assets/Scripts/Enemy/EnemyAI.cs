@@ -2,6 +2,7 @@
 
 namespace Assets.Scripts.Enemy
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class EnemyAI : MonoBehaviour, IEnemyAI
     {
 
