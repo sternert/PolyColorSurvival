@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy
@@ -25,11 +26,13 @@ namespace Assets.Scripts.Enemy
                     var newEnemy = enemySpawn.Spawn();
                     var newEnemyAI = newEnemy.GetComponent<IEnemyAI>();
                     newEnemyAI.SetTargets(targets);
+                    newEnemyAI.SetEnemyManager(this);
                     _enemies.Add(newEnemyAI);
                 }
             }
 
-            foreach (var enemyAi in _enemies)
+            var updateEnemies = _enemies.ToList();
+            foreach (var enemyAi in updateEnemies)
             {
                 if (enemyAi.CanMakeAction())
                 {
@@ -42,5 +45,10 @@ namespace Assets.Scripts.Enemy
             }
         }
 
+        public void DestroySelf(EnemyAI enemyAi)
+        {
+            _enemies.Remove(enemyAi);
+            Destroy(enemyAi.GetGameObject());
+        }
     }
 }

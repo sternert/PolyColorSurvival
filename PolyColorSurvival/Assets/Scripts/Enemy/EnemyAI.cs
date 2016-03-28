@@ -14,6 +14,7 @@ namespace Assets.Scripts.Enemy
         private GameObject _currentTarget;
         private Rigidbody2D _rigidbody;
         private float _nextAction;
+        private EnemyManager _enemyManager;
 
         void Awake()
         {
@@ -24,6 +25,11 @@ namespace Assets.Scripts.Enemy
         public void SetTargets(GameObject[] targets)
         {
             _targets = targets;
+        }
+
+        public GameObject GetGameObject()
+        {
+            return gameObject;
         }
 
         public bool CanMakeAction()
@@ -65,9 +71,16 @@ namespace Assets.Scripts.Enemy
                 RotateTowards(_currentTarget.GetComponent<Rigidbody2D>().position);
                 MoveTowards(_currentTarget.GetComponent<Rigidbody2D>().position);
             }
-            else
-            {
-            }
+        }
+
+        public void SetEnemyManager(EnemyManager enemyManager)
+        {
+            _enemyManager = enemyManager;
+        }
+
+        public void DestroySelf()
+        {
+            _enemyManager.DestroySelf(this);
         }
 
         private void RotateTowards(Vector2 target)
