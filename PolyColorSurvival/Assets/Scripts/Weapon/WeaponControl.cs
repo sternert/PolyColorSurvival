@@ -6,19 +6,20 @@ namespace Assets.Scripts.Weapon
 
         public GameObject shot;
         public Transform shotSpawn;
+        public float shotRange;
         public float shotSpeed;
         public float fireRate;
 
-        private float nextShot;
+        private float _nextShot;
 
         void Start()
         {
-            nextShot = 0.0f;
+            _nextShot = 0.0f;
         }
 
         public bool CanAttack()
         {
-            return Time.time > nextShot;
+            return Time.time > _nextShot;
         }
 
         public void Attack()
@@ -29,7 +30,8 @@ namespace Assets.Scripts.Weapon
             var velocity = shotSpawn.up * shotSpeed;
             var velocityVector2 = new Vector2(velocity.x, velocity.y);
             newShotMover.SetVelocity(velocityVector2);
-            nextShot = Time.time + fireRate;
+            newShotMover.SetRange(shotRange);
+            _nextShot = Time.time + fireRate;
         }
     }
 }
