@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
@@ -7,11 +8,13 @@ namespace Assets.Scripts.Enemy
     {
 
         public Collider2D targetMoveRangeCollider;
+        public Collider2D targetAttackRangeCollider;
         public float speed;
         public float actionRate;
+        public float _damage;
 
         private GameObject[] _targets;
-        private GameObject _currentTarget;
+        private GameObject _currentMoveTarget;
         private Rigidbody2D _rigidbody;
         private float _nextAction;
         private EnemyManager _enemyManager;
@@ -44,13 +47,32 @@ namespace Assets.Scripts.Enemy
 
         public void MakeAction()
         {
+            AttackTarget();
             FindMoveTarget();
             _nextAction = Time.time + actionRate;
         }
 
+        private void AttackTarget()
+        {
+            if(_currentMoveTarget)
+            { 
+                var targetCollider = _currentMoveTarget.GetComponent<Collider2D>();
+                if (targetCollider)
+                {
+                    if (targetAttackRangeCollider.IsTouching(targetCollider))
+                    {
+                        var playerHealth = _currentMoveTarget.GetComponent<PlayerHealth>();
+                        playerHealth.Damage(_damage);
+                        // ATTACK TARGET
+                        Debug.Log("Attack target!");
+                    }
+                }
+            }
+        }
+
         private void FindMoveTarget()
         {
-            _currentTarget = null;
+            _currentMoveTarget = null;
             foreach (var target in _targets)
             {
                 var targetCollider = target.GetComponent<Collider2D>();
@@ -58,7 +80,7 @@ namespace Assets.Scripts.Enemy
                 {
                     if (targetMoveRangeCollider.IsTouching(targetCollider))
                     {
-                        _currentTarget = target;
+                        _currentMoveTarget = target;
                     }
                 }
             }
@@ -66,10 +88,10 @@ namespace Assets.Scripts.Enemy
 
         public void Move()
         {
-            if (_currentTarget)
+            if (_currentMoveTarget)
             {
-                RotateTowards(_currentTarget.GetComponent<Rigidbody2D>().position);
-                MoveTowards(_currentTarget.GetComponent<Rigidbody2D>().position);
+                RotateTowards(_currentMoveTarget.GetComponent<Rigidbody2D>().position);
+                MoveTowards(_currentMoveTarget.GetComponent<Rigidbody2D>().position);
             }
         }
 
