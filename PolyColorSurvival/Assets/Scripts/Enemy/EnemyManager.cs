@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.MainManagers;
 using UnityEngine;
 
 namespace Assets.Scripts.Enemy
@@ -19,30 +20,33 @@ namespace Assets.Scripts.Enemy
 
         void FixedUpdate()
         {
-            foreach (var enemySpawn in _spawns)
+            if (StateManager.CurrentState == GameState.Active)
             {
-                if (enemySpawn.CanSpawn())
+                foreach (var enemySpawn in _spawns)
                 {
-                    var newEnemy = enemySpawn.Spawn();
-                    var newEnemyAI = newEnemy.GetComponent<IEnemyAI>();
-                    newEnemyAI.SetTargets(targets);
-                    newEnemyAI.SetEnemyManager(this);
-                    _enemies.Add(newEnemyAI);
+                    if (enemySpawn.CanSpawn())
+                    {
+                        var newEnemy = enemySpawn.Spawn();
+                        var newEnemyAI = newEnemy.GetComponent<IEnemyAI>();
+                        newEnemyAI.SetTargets(targets);
+                        newEnemyAI.SetEnemyManager(this);
+                        _enemies.Add(newEnemyAI);
+                    }
                 }
-            }
 
-            var updateEnemies = _enemies.ToList();
-            foreach (var enemyAi in updateEnemies)
-            {
-                if (enemyAi.CanMakeAction())
+                var updateEnemies = _enemies.ToList();
+                foreach (var enemyAi in updateEnemies)
                 {
-                    enemyAi.MakeAction();
+                    if (enemyAi.CanMakeAction())
+                    {
+                        enemyAi.MakeAction();
+                    }
+                    if (enemyAi.CanMove())
+                    {
+                        enemyAi.Move();
+                    }
                 }
-                if (enemyAi.CanMove())
-                {
-                    enemyAi.Move();
                 }
-            }
         }
 
         public void DestroySelf(EnemyAI enemyAi)

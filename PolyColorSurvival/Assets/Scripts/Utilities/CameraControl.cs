@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.MainManagers;
+using UnityEngine;
 
 namespace Assets.Scripts.Utilities
 {
@@ -8,7 +9,10 @@ namespace Assets.Scripts.Utilities
 
         // Update is called once per frame
         void Update () {
-            transform.position = new Vector3(target.position.x, target.position.y, -10f);
+            if (StateManager.CurrentState == GameState.Active)
+            {
+                transform.position = new Vector3(target.position.x, target.position.y, -10f);
+            }
         }
     }
 }

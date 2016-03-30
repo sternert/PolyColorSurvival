@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.MainManagers;
+using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class PlayerHealth : MonoBehaviour {
         health -= damage;
         if(health <= 0f)
         {
+            GameManager.PlayerDied();
             Destroy(gameObject);
         }
     }
