@@ -6,12 +6,13 @@ namespace Assets.Scripts.Map
     {
         public GameObject polygon;
         public int numberOfStaticObjects;
+        public float mapHalfSize;
 
         void Awake()
         {
             for (int i = 0; i < numberOfStaticObjects; i++)
             {
-                var randomPosition = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), -0.1f);
+                var randomPosition = new Vector3(Random.Range(-mapHalfSize, mapHalfSize), Random.Range(-mapHalfSize, mapHalfSize), -0.1f);
                 var quat = Quaternion.identity * Quaternion.Euler(0, 0, Random.Range(0, 360));
                 var newObject = Instantiate(polygon, randomPosition, quat) as GameObject;
                 var collider = newObject.GetComponent<PolygonCollider2D>();
