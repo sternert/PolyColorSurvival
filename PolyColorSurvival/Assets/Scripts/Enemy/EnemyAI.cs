@@ -52,6 +52,18 @@ namespace Assets.Scripts.Enemy
             _nextAction = Time.time + actionRate;
         }
 
+        public void PulseAnimation(bool scaleUp)
+        {
+            if (scaleUp)
+            {
+                gameObject.transform.localScale = new Vector3(1.15f, 1.15f);
+            }
+            else
+            {
+                gameObject.transform.localScale = new Vector3(1f, 1f);
+            }
+        }
+
         private void AttackTarget()
         {
             if(_currentMoveTarget)

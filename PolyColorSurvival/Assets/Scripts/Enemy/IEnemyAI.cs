@@ -14,5 +14,6 @@ namespace Assets.Scripts.Enemy
         void Move();
         void SetEnemyManager(EnemyManager enemyManager);
         void DestroySelf();
+        void PulseAnimation(bool scaleUp);
     }
 }

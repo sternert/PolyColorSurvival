@@ -40,6 +40,11 @@ namespace Assets.Scripts.Enemy
                     if (enemyAi.CanMakeAction())
                     {
                         enemyAi.MakeAction();
+                        enemyAi.PulseAnimation(true);
+                    }
+                    else
+                    {
+                        enemyAi.PulseAnimation(false);
                     }
                     if (enemyAi.CanMove())
                     {
