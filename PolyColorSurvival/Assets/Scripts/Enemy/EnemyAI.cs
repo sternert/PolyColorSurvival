@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
@@ -66,7 +65,7 @@ namespace Assets.Scripts.Enemy
 
         private void AttackTarget()
         {
-            if(_currentMoveTarget)
+            if (_currentMoveTarget)
             { 
                 var targetCollider = _currentMoveTarget.GetComponent<Collider2D>();
                 if (targetCollider)
@@ -75,8 +74,6 @@ namespace Assets.Scripts.Enemy
                     {
                         var playerHealth = _currentMoveTarget.GetComponent<PlayerHealth>();
                         playerHealth.Damage(_damage);
-                        // ATTACK TARGET
-                        Debug.Log("Attack target!");
                     }
                 }
             }
@@ -85,15 +82,14 @@ namespace Assets.Scripts.Enemy
         private void FindMoveTarget()
         {
             _currentMoveTarget = null;
+            var closestDistance = float.MaxValue;
             foreach (var target in _targets)
             {
-                var targetCollider = target.GetComponent<Collider2D>();
-                if (targetCollider)
+                var targetDistance = Vector2.Distance(transform.position, target.transform.position);
+                if (closestDistance > targetDistance)
                 {
-                    if (targetMoveRangeCollider.IsTouching(targetCollider))
-                    {
-                        _currentMoveTarget = target;
-                    }
+                    closestDistance = targetDistance;
+                    _currentMoveTarget = target;
                 }
             }
         }

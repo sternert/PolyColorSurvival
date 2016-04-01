@@ -51,7 +51,7 @@ namespace Assets.Scripts.Enemy
                         enemyAi.Move();
                     }
                 }
-                }
+            }
         }
 
         public void DestroySelf(EnemyAI enemyAi)
