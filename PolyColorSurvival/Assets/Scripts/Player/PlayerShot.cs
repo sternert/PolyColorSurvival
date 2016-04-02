@@ -7,6 +7,7 @@ namespace Assets.Scripts.Player
     public class PlayerShot : MonoBehaviour
     {
         public float damage;
+        public GameObject shotParticle;
 
         void OnTriggerEnter2D(Collider2D other)
         {
@@ -14,12 +15,19 @@ namespace Assets.Scripts.Player
             {
                 var hasHealth = other.gameObject.GetComponent<HasHealth>();
                 hasHealth.Damage(damage);
+                CreateShotParticle(transform.position);
                 Destroy(gameObject);
             }
             if (other.tag == "Object")
             {
+                CreateShotParticle(transform.position);
                 Destroy(gameObject);
             }
+        }
+
+        private void CreateShotParticle(Vector3 position)
+        {
+            Instantiate(shotParticle, position, Quaternion.identity);
         }
     }
 }
