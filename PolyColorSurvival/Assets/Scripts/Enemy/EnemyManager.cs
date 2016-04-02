@@ -27,6 +27,7 @@ namespace Assets.Scripts.Enemy
                     if (enemySpawn.CanSpawn())
                     {
                         var newEnemy = enemySpawn.Spawn();
+                        newEnemy.name = "Enemy: " + newEnemy.GetInstanceID();
                         var newEnemyAI = newEnemy.GetComponent<IEnemyAI>();
                         newEnemyAI.SetTargets(targets);
                         newEnemyAI.SetEnemyManager(this);

@@ -6,7 +6,6 @@ namespace Assets.Scripts.Enemy
     public class EnemyAI : MonoBehaviour, IEnemyAI
     {
 
-        public Collider2D targetMoveRangeCollider;
         public Collider2D targetAttackRangeCollider;
         public float speed;
         public float actionRate;
@@ -14,6 +13,7 @@ namespace Assets.Scripts.Enemy
 
         private GameObject[] _targets;
         private GameObject _currentMoveTarget;
+        private Collider2D _targetCollider;
         private Rigidbody2D _rigidbody;
         private float _nextAction;
         private EnemyManager _enemyManager;
@@ -46,8 +46,8 @@ namespace Assets.Scripts.Enemy
 
         public void MakeAction()
         {
-            AttackTarget();
             FindMoveTarget();
+            AttackTarget();
             _nextAction = Time.time + actionRate;
         }
 
@@ -67,10 +67,9 @@ namespace Assets.Scripts.Enemy
         {
             if (_currentMoveTarget)
             { 
-                var targetCollider = _currentMoveTarget.GetComponent<Collider2D>();
-                if (targetCollider)
+                if (_targetCollider)
                 {
-                    if (targetAttackRangeCollider.IsTouching(targetCollider))
+                    if (targetAttackRangeCollider.IsTouching(_targetCollider))
                     {
                         var playerHealth = _currentMoveTarget.GetComponent<PlayerHealth>();
                         playerHealth.Damage(_damage);
@@ -90,6 +89,7 @@ namespace Assets.Scripts.Enemy
                 {
                     closestDistance = targetDistance;
                     _currentMoveTarget = target;
+                    _targetCollider = _currentMoveTarget.GetComponent<Collider2D>();
                 }
             }
         }
