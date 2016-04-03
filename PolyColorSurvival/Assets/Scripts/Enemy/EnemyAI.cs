@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.MainManagers;
+using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
@@ -10,6 +11,7 @@ namespace Assets.Scripts.Enemy
         public float speed;
         public float actionRate;
         public float _damage;
+        public long points;
 
         private GameObject[] _targets;
         private GameObject _currentMoveTarget;
@@ -111,6 +113,7 @@ namespace Assets.Scripts.Enemy
         public void DestroySelf()
         {
             _enemyManager.DestroySelf(this);
+            StateManager.AddPoints(points);
         }
 
         private void RotateTowards(Vector2 target)

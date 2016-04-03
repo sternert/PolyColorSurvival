@@ -1,19 +1,31 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Enemy;
+using Assets.Scripts.Player;
+using UnityEngine;
 
 namespace Assets.Scripts.MainManagers
 {
-    public class GameManager : MonoBehaviour {
+    public class GameManager : MonoBehaviour
+    {
+        public EnemyManager enemyManager;
+        public PlayerMovement playerMovement;
 
-        private static GameManager fetch;
-
-        void Awake()
+        public void PlayerDied()
         {
-            fetch = this;
+            playerMovement.gameObject.SetActive(false);
+            StateManager.SetPaused();
         }
 
-        public static void PlayerDied()
+        public void StartGame()
         {
-            StateManager.CurrentState = GameState.Paused;
+            playerMovement.gameObject.SetActive(true);
+            enemyManager.Restart();
+            playerMovement.Restart();
+            StateManager.SetActive();
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
         }
     }
 }

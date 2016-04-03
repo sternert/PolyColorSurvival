@@ -18,6 +18,21 @@ namespace Assets.Scripts.Enemy
             _enemies = new List<IEnemyAI>();
         }
 
+        public void Restart()
+        {
+            DestroyAllEnemies();
+        }
+
+        private void DestroyAllEnemies()
+        {
+            for (var i = _enemies.Count - 1; i >= 0; i--)
+            {
+                var enemyAi = _enemies[i];
+                _enemies.Remove(enemyAi);
+                Destroy(enemyAi.GetGameObject());
+            }
+        }
+
         void FixedUpdate()
         {
             if (StateManager.CurrentState == GameState.Active)

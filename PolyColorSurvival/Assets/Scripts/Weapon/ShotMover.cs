@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.MainManagers;
+using UnityEngine;
 
 namespace Assets.Scripts.Weapon
 {
@@ -27,6 +28,10 @@ namespace Assets.Scripts.Weapon
 
         void FixedUpdate()
         {
+            if (StateManager.CurrentState != GameState.Active)
+            {
+                Destroy(gameObject);
+            }
             if ((_rigidBody.position - _start).magnitude > _range)
             {
                 Destroy(gameObject);

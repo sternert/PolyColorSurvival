@@ -5,15 +5,26 @@ public class PlayerHealth : MonoBehaviour {
 
     public float health;
     public Animator damageAnimator;
+    public GameManager gameManager;
+
+    private float _startHealth;
+
+    void Awake()
+    {
+        _startHealth = health;
+    }
 
     public void Damage(float damage)
     {
         health -= damage;
-        damageAnimator.SetTrigger("TakeDamage");
         if(health <= 0f)
         {
-            GameManager.PlayerDied();
-            Destroy(gameObject);
+            gameManager.PlayerDied();
+            health = _startHealth;
+        }
+        else
+        {
+            damageAnimator.SetTrigger("TakeDamage");
         }
     }
 }

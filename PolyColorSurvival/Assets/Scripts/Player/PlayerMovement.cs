@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.MainManagers;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -13,14 +14,23 @@ namespace Assets.Scripts.Player
         {
             _rigidbody = GetComponent<Rigidbody2D>();
         }
+
+        public void Restart()
+        {
+            _rigidbody.position = Vector2.zero;
+            _rigidbody.rotation = 0;
+        }
 	
         void FixedUpdate ()
         {
-            var horizontal = Input.GetAxis("Horizontal");
-            var vertical = Input.GetAxis("Vertical");
-            var mouse = Input.mousePosition;
-            MovePlayer(horizontal, vertical);
-            RotatePlayer(new Vector2(mouse.x, mouse.y));
+            if (StateManager.CurrentState == GameState.Active)
+            {
+                var horizontal = Input.GetAxis("Horizontal");
+                var vertical = Input.GetAxis("Vertical");
+                var mouse = Input.mousePosition;
+                MovePlayer(horizontal, vertical);
+                RotatePlayer(new Vector2(mouse.x, mouse.y));
+            }
         }
 
         private void RotatePlayer(Vector2 mouse)

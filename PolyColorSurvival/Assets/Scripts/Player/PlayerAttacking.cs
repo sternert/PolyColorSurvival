@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Weapon;
+﻿using Assets.Scripts.MainManagers;
+using Assets.Scripts.Weapon;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -15,13 +16,16 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
-            if (Input.GetButton("Fire1"))
-            {
-                foreach (var weapon in _weapons)
+            if (StateManager.CurrentState == GameState.Active)
+            { 
+                if (Input.GetButton("Fire1"))
                 {
-                    if (weapon.CanAttack())
+                    foreach (var weapon in _weapons)
                     {
-                        weapon.Attack();
+                        if (weapon.CanAttack())
+                        {
+                            weapon.Attack();
+                        }
                     }
                 }
             }

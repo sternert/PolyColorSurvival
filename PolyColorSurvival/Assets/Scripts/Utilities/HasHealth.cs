@@ -14,6 +14,7 @@ namespace Assets.Scripts.Utilities
             if (health <= 0)
             {
                 var enemyAi = GetComponent<IEnemyAI>();
+
                 enemyAi.DestroySelf();
             }
         }
