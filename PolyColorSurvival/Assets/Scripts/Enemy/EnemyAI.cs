@@ -8,6 +8,7 @@ namespace Assets.Scripts.Enemy
     {
 
         public Collider2D targetAttackRangeCollider;
+        public ParticleSystem enemyExplode;
         public float speed;
         public float actionRate;
         public float _damage;
@@ -112,8 +113,14 @@ namespace Assets.Scripts.Enemy
 
         public void DestroySelf()
         {
+            Explode(gameObject.transform.position);
             _enemyManager.DestroySelf(this);
             StateManager.AddPoints(points);
+        }
+
+        private void Explode(Vector3 position)
+        {
+            Instantiate(enemyExplode, position, Quaternion.identity);
         }
 
         private void RotateTowards(Vector2 target)

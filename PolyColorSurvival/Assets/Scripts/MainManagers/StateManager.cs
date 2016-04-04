@@ -13,6 +13,13 @@ namespace Assets.Scripts.MainManagers
         private MenuManager _menuManager;
         private long totalScore = 0;
 
+        void Awake()
+        {
+            fetch = this;
+            fetch._menuManager = menu.GetComponent<MenuManager>();
+            menu.SetActive(true);
+        }
+
         public static long TotalScore
         {
             get { return fetch.totalScore; }
@@ -43,12 +50,6 @@ namespace Assets.Scripts.MainManagers
             fetch.menu.SetActive(false);
             fetch.menuState = MenuState.Restart;
             fetch.currentState = GameState.Active;
-        }
-
-        void Awake()
-        {
-            fetch = this;
-            fetch._menuManager = menu.GetComponent<MenuManager>();
         }
 
         private enum MenuState
