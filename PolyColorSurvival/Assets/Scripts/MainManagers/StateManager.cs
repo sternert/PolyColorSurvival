@@ -5,6 +5,7 @@ namespace Assets.Scripts.MainManagers
     public class StateManager : MonoBehaviour
     {
         public GameObject menu;
+        public OverlayManager overlay;
 
         private static StateManager fetch;
 
@@ -33,6 +34,7 @@ namespace Assets.Scripts.MainManagers
         public static void AddPoints(long points)
         {
             fetch.totalScore += points;
+            fetch.overlay.SetScore(fetch.totalScore);
         }
 
         public static void SetPaused()
