@@ -25,6 +25,7 @@ public class PlayerHealth : MonoBehaviour {
         else
         {
             damageAnimator.SetTrigger("TakeDamage");
+            StateManager.SetPlayerHealth(health);
         }
     }
 }

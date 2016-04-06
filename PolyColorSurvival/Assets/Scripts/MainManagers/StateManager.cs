@@ -13,6 +13,7 @@ namespace Assets.Scripts.MainManagers
         private MenuState menuState = MenuState.Start;
         private MenuManager _menuManager;
         private long totalScore = 0;
+        private float playerHealth;
 
         void Awake()
         {
@@ -58,6 +59,12 @@ namespace Assets.Scripts.MainManagers
         {
             Start,
             Restart
+        }
+
+        public static void SetPlayerHealth(float health)
+        {
+            fetch.playerHealth = health;
+            fetch.overlay.SetHealth(health);
         }
     }
 

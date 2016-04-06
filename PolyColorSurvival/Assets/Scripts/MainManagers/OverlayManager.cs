@@ -1,13 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class OverlayManager : MonoBehaviour
+namespace Assets.Scripts.MainManagers
 {
-
-    public Text ScoreText;
-
-    public void SetScore(long score)
+    public class OverlayManager : MonoBehaviour
     {
-        ScoreText.text = "Score: " + score + " pts";
+        public Text scoreText;
+        public Slider healthSlider;
+
+        public void SetScore(long score)
+        {
+            scoreText.text = "Score: " + score + " pts";
+        }
+
+        public void SetHealth(float health)
+        {
+            healthSlider.value = health;
+        }
     }
 }
